@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/bpace522/CSE341_CONTACTS#readme",
   "dependencies": {
+    "body-parser": "^2.3.0",
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
