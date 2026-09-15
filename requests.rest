@@ -1,10 +1,13 @@
-### get all contacts
+### Get all contacts
 GET http://localhost:8080/contacts
 
-### get one by id
+### Get one contact by valid ID
 GET http://localhost:8080/contacts/6a97a7a7591c810f241b8dde
 
-### Create contact
+### Get contact with INVALID ID format (Should return 400 Bad Request)
+GET http://localhost:8080/contacts/invalid-id-123
+
+### Create contact (Valid)
 POST http://localhost:8080/contacts
 Content-Type: application/json
 
@@ -16,10 +19,20 @@ Content-Type: application/json
     "birthday": "1990-01-01"
 }
 
-###
+### Create contact with INVALID data (Should return 400 with error list)
+POST http://localhost:8080/contacts
+Content-Type: application/json
 
-### Update contact (Replace ID with an existing contact ID)
-PUT http://localhost:8080/contacts/6a9f1eb814ac543a691f04ec
+{
+    "firstName": "",
+    "lastName": "",
+    "email": "not-an-email",
+    "favoriteColor": "",
+    "birthday": "01-01-1990"
+}
+
+### Update contact (Valid)
+PUT http://localhost:8080/contacts/6aa9bb65f1cabbc48c2451a9
 Content-Type: application/json
 
 {
@@ -30,7 +43,20 @@ Content-Type: application/json
     "birthday": "1992-05-15"
 }
 
-###
+### Update contact with INVALID ID format (Should return 400 Bad Request)
+PUT http://localhost:8080/contacts/bad-id
+Content-Type: application/json
 
-### Delete contact (Replace ID with an existing contact ID)
-DELETE http://localhost:8080/contacts/6a9f1eb814ac543a691f04ec
+{
+    "firstName": "Jane",
+    "lastName": "Doe",
+    "email": "jane.doe@example.com",
+    "favoriteColor": "Green",
+    "birthday": "1992-05-15"
+}
+
+### Delete contact (Valid)
+DELETE http://localhost:8080/contacts/6aa1f21abc674cea6e0b2bda
+
+### Delete contact with INVALID ID format (Should return 400 Bad Request)
+DELETE http://localhost:8080/contacts/bad-id

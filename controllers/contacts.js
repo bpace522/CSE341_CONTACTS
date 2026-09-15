@@ -32,7 +32,6 @@ const getOneById = async (req, res) => {
 
 const createUser = async (req, res) => {
     try {
-        const userId = new ObjectId(req.params.id);
         const user = {
             firstName: req.body.firstName,
             lastName: req.body.lastName,
@@ -42,7 +41,7 @@ const createUser = async (req, res) => {
         };
         const result = await mongodb.getDb().collection('contacts').insertOne(user);
         if (result.acknowledged) {
-            res.status(204).json(result);
+            res.status(200).json(result);
         } else {
             res.status(500).json(result.error || 'Error ocurrred creating the user');
         }
@@ -63,7 +62,7 @@ const updateUser = async (req, res) => {
         };
         const result = await mongodb.getDb().collection('contacts').replaceOne({ _id: userId}, user);
         if (result.modifiedCount > 0) {
-            res.status(204).send();
+            res.status(200).send();
         }   else {
             res.status(500).json(result.error || 'Error occurred updating the user');
         }
@@ -77,7 +76,7 @@ const deleteUser = async (req, res) => {
         const userId = new ObjectId(req.params.id);
         const result = await mongodb.getDb().collection('contacts').deleteOne({ _id: userId});
         if (result.deletedCount > 0) {
-            res.status(204).send();
+            res.status(200).send();
         }   else {
             res.status(500).json(result.error || 'Error occurred deleting the user');
         }
